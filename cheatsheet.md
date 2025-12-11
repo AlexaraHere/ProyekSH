@@ -1,6 +1,6 @@
 # 📈 MODULE: BASIC FUNDAMENTAL ANALYSIS CHEATSHEET
 # LEVEL: BEGINNER / INTERMEDIATE
-# PURPOSE: Quick reference for Stock Valuation & Business Quality.
+# PURPOSE: Quick reference for Stock Valuation, Business Quality, & Data Reading.
 
 ================================================================================
 PART 1: KEY METRICS (DEFINISI & LOGIKA)
@@ -23,7 +23,7 @@ PART 1: KEY METRICS (DEFINISI & LOGIKA)
 
 3. PBV (Price to Book Value)
    - Analogi IT: Hardware Cost vs Selling Price.
-   - Rumus: Harga Saham / Nilai Aset Bersih per Lembar.
+   - Rumus: Harga Saham / Nilai Aset Bersih per Lembar (BVPS).
    - Arti: Kita beli barang di harga diskon atau harga premium?
    - Target:
      * < 1x   : DISKON (Murah banget, cek ada masalah gak?).
@@ -32,11 +32,11 @@ PART 1: KEY METRICS (DEFINISI & LOGIKA)
 
 4. ROE (Return on Equity)
    - Analogi IT: System Efficiency / Performance.
-   - Rumus: Laba Bersih / Total Modal (Equity).
+   - Rumus: (EPS / BVPS) * 100.
    - Arti: Seberapa jago manajemen muterin duit pemegang saham?
    - Target:
-     * > 15%  : BAGUS (Manajemen Efisien).
-     * < 8%   : JELEK (Duit mending ditaruh di Deposito aja).
+     * > 15%  : BAGUS (Manajemen Efisien/High Performance).
+     * < 8%   : JELEK (Lemot, mending Deposito).
 
 5. MARKET CAP (Kapitalisasi Pasar)
    - Analogi IT: Server Size / Scale.
@@ -57,12 +57,11 @@ STEP-BY-STEP (STOCKBIT):
 2. Buka Tab "Key Stats".
 3. Cek Section "Valuation" untuk PER & PBV.
 4. Cek Section "Profitability" untuk ROE.
+5. Cek Section "Share Issued" untuk Jumlah Lembar Saham.
 
 ================================================================================
 PART 3: ALGORITMA KEPUTUSAN (PSEUDO-CODE)
 ================================================================================
-
-Logika sederhana untuk menentukan Buy/Hold/Skip berdasarkan Fundamental:
 
 def investment_decision(per, pbv, roe):
     
@@ -84,5 +83,30 @@ def investment_decision(per, pbv, roe):
         else:
             return "WAIT: Harga Kemahalan (Overvalued). Tunggu koreksi."
 
-# Note: Algoritma ini cocok untuk saham "Old Economy" (Bank, Tambang, Consumer).
-# Tidak 100% akurat untuk saham Tech/Digital Bank yang bakar uang (Growth Stocks).
+================================================================================
+PART 4: CARA BACA ANGKA (US FORMAT VS INDO) ⚠️ PENTING!
+================================================================================
+
+Banyak aplikasi (Stockbit/Yahoo Finance) pake standar US/Inggris.
+Jangan salah baca Titik (.) dan Koma (,)!
+
+1. ATURAN TANDA BACA
+   - 🇺🇸 US (Stockbit): Koma (,) = Ribuan | Titik (.) = Desimal/Pecahan.
+   - 🇮🇩 INDO (Kita): Titik (.) = Ribuan | Koma (,) = Desimal/Pecahan.
+
+2. ATURAN HURUF "B" (BILLION)
+   Di aplikasi, "B" artinya Miliar ($10^9$). TAPI liat angka depannya!
+
+   | Tampilan di Layar | Cara Baca (Indo) | Nilai Asli (Rupiah/Lembar) |
+   | :--- | :--- | :--- |
+   | **151.56 B** | 151 Koma 56 Miliar | **151 MILIAR** (Ratusan Miliar) |
+   | **331,191 B** | 331 Ribu Miliar | **331 TRILIUN** (Ratusan Triliun) |
+   | **1,000 B** | 1 Ribu Miliar | **1 TRILIUN** |
+
+   > **RULE OF THUMB:**
+   > Kalau angka di depan "B" udah Ribuan (ada komanya), itu artinya udah **TRILIUN**.
+
+3. INPUT KE PYTHON/CALCULATOR
+   Jangan masukin huruf "B" atau "T". Masukin Nol-nya lengkap!
+   - 151 Miliar -> `151000000000` (9 Nol)
+   - 331 Triliun -> `331000000000000` (12 Nol)
